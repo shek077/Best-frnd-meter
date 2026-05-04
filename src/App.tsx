@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Sparkles, Star, Users, RefreshCcw, Smile, HeartHandshake, Coffee, Gift, PartyPopper, Share2, Settings2, X, Check } from 'lucide-react';
+import { Heart, Sparkles, Star, Users, RefreshCcw, Smile, HeartHandshake, Coffee, Gift, PartyPopper, Share2, Settings2, X, Check, ChevronDown, Rocket } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 type ResultLevel = 'Stranger' | 'Casual' | 'Good Friends' | 'Besties' | 'Soulmates' | 'Inseparable';
@@ -169,6 +169,42 @@ export default function App() {
       <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-pink-200 rounded-full blur-[120px] opacity-60 pointer-events-none"></div>
       <div className="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-200 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
       <div className="fixed top-[20%] right-[15%] w-[300px] h-[300px] bg-yellow-100 rounded-full blur-[100px] opacity-60 pointer-events-none"></div>
+
+      {/* Top Scroll Indicator & Button */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="mt-4 mb-8 flex flex-col items-center gap-6 relative z-10 w-full"
+      >
+        <button 
+          onClick={() => {
+            window.scrollTo({ top: document.body.scrollHeight / 2, behavior: 'smooth' });
+            confetti({
+              particleCount: 20,
+              spread: 40,
+              colors: ['#F472B6']
+            });
+          }}
+          className="group relative px-8 py-3 bg-white/60 backdrop-blur-sm border-2 border-pink-100 rounded-full shadow-lg hover:shadow-xl hover:border-pink-200 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer overflow-hidden"
+        >
+          <div className="relative flex items-center gap-3 text-pink-500 font-black italic text-sm uppercase tracking-tighter">
+            <Rocket className="w-4 h-4 group-hover:animate-bounce" />
+            <span>Jump to the Meter!</span>
+            <Sparkles className="w-4 h-4 text-yellow-400" />
+          </div>
+        </button>
+
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-pink-300 font-bold uppercase tracking-[0.2em] text-[10px]">The magic starts down here</span>
+          <motion.div
+            animate={{ y: [0, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <ChevronDown className="w-6 h-6 text-pink-200" />
+          </motion.div>
+        </div>
+      </motion.div>
 
       {/* Decorative Floating Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -498,6 +534,43 @@ export default function App() {
       >
         * Our algorithms are powered by shared snacks and inside jokes.
       </motion.p>
+
+      {/* Scroll Indicator & Extra Button */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="mt-16 flex flex-col items-center gap-8 relative z-10 w-full mb-20"
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-pink-400 font-black uppercase tracking-[0.3em] text-xs">Scroll for more magic</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <ChevronDown className="w-8 h-8 text-pink-300" />
+          </motion.div>
+        </div>
+
+        <button 
+          onClick={() => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            confetti({
+              particleCount: 30,
+              spread: 50,
+              colors: ['#F472B6', '#60A5FA']
+            });
+          }}
+          className="group relative px-12 py-6 bg-white border-4 border-pink-100 rounded-full shadow-xl hover:shadow-2xl hover:border-pink-200 transition-all transform hover:-translate-y-1 active:scale-95 cursor-pointer overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-pink-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="relative flex items-center gap-4 text-pink-600 font-black italic text-xl uppercase tracking-tighter">
+            <Rocket className="w-6 h-6 group-hover:animate-bounce" />
+            <span>Discover Daily Surprises Below!</span>
+            <Sparkles className="w-6 h-6 text-yellow-400" />
+          </div>
+        </button>
+      </motion.div>
 
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {
